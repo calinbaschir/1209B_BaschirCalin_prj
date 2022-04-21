@@ -11,7 +11,7 @@ public class CollisionChecker {
     }
     public void checkTile(Entity entity) {
 
-        // Se salveaza pozitia hitbox-ului caracterului in variabilele urmatoare
+        // Se salvează poziția hit-box-ului caracterului in variabilele următoare
         int entityLeftX = entity.worldX + entity.solidArea.x;
         int entityRightX = entity.worldX + entity.solidArea.x + entity.solidArea.width;
         int entityTopY = entity.worldY + entity.solidArea.y;
@@ -22,51 +22,43 @@ public class CollisionChecker {
         int entityTopRow = entityTopY / 32;
         int entityBotRow = entityBotY / 32;
 
-        // Variabilele tileNum1 si tileNum2 urmeaza sa salveze tile-urile pe care se vor afla
-        // colturile hitboxului entitatii in urma deplasarii
+        // Variabilele tileNum1 si tileNum2 urmează să salveze tile-urile pe care se vor afla
+        // colturile hit boxului entității in urma deplasării
         int tileNum1 = 1, tileNum2 = 1;
 
-        // Pentru a se anticipa urmatoarea pozitie a player-ului, depinzand de orientarea sa
-        // trebuie fie scazuta ori adunata viteza cu care acesta se deplaseaza
-        switch(entity.direction) {
-            case "sus":
+        // Pentru a se anticipa următoarea poziție a player-ului, depinzând de orientarea sa
+        // trebuie fie scăzuta ori adunata viteza cu care acesta se deplasează
+        switch (entity.direction) {
+            case "sus" -> {
                 entityTopRow = (entityTopY - entity.speed) / 32;
                 tileNum1 = gamePanel.tileManager.mapTile[entityLeftCol][entityTopRow];
                 tileNum2 = gamePanel.tileManager.mapTile[entityRightCol][entityTopRow];
-                break;
-            case "jos":
-                entityBotRow = (entityBotY + entity.speed) /  32;
+            }
+            case "jos" -> {
+                entityBotRow = (entityBotY + entity.speed) / 32;
                 tileNum1 = gamePanel.tileManager.mapTile[entityLeftCol][entityBotRow];
                 tileNum2 = gamePanel.tileManager.mapTile[entityRightCol][entityBotRow];
-                break;
-            case "stg":
+            }
+            case "stg" -> {
                 entityLeftCol = (entityLeftX - entity.speed) / 32;
                 tileNum1 = gamePanel.tileManager.mapTile[entityLeftCol][entityTopRow];
                 tileNum2 = gamePanel.tileManager.mapTile[entityLeftCol][entityBotRow];
-                break;
-            case "drt":
+            }
+            case "drt" -> {
                 entityRightCol = (entityRightX + entity.speed) / 32;
                 tileNum1 = gamePanel.tileManager.mapTile[entityRightCol][entityTopRow];
                 tileNum2 = gamePanel.tileManager.mapTile[entityRightCol][entityBotRow];
-                break;
+            }
         }
         // In caz ca vreunul dintre tileNum1 si tileNum2 este un tile cu coliziune, caracterul este
-        // impins inapoi
+        // împins înapoi
         if(gamePanel.tileManager.tile[tileNum1].collision || gamePanel.tileManager.tile[tileNum2].collision) {
             entity.collisionOn = true;
-            switch(entity.direction) {
-                case "sus":
-                    entity.worldY += 1;
-                    break;
-                case "drt":
-                    entity.worldX -= 1;
-                    break;
-                case "stg":
-                    entity.worldX += 1;
-                    break;
-                case "jos":
-                    entity.worldY -= 1;
-                    break;
+            switch (entity.direction) {
+                case "sus" -> entity.worldY += 1;
+                case "drt" -> entity.worldX -= 1;
+                case "stg" -> entity.worldX += 1;
+                case "jos" -> entity.worldY -= 1;
             }
         }
     }

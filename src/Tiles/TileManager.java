@@ -47,25 +47,48 @@ public class TileManager {
         }
     }
     public void loadMap(Graphics2D g) {
-        try {
-            // In "/Level/Level_01.txt" se afla o matrice 20x20. Fiecare numar din acea matrice va afisa pe fereastra
-            // tile-ul corespunzator din vectorul tile la coordonatele sale.
-            InputStream file = getClass().getResourceAsStream("/Level/Level_01.txt");
-            assert file != null;
-            Scanner scanner = new Scanner(new InputStreamReader(file));
-            for(int i = 0; i < 20; i++) {
-                String line = scanner.nextLine();
-                String[] numbers = line.split(" ");
-                for(int j = 0; j < 20; j++) {
-                    g.drawImage(tile[Integer.valueOf(numbers[j])].img, i * 32, j * 32,
-                            gamePanel.tileSize / 2, gamePanel.tileSize / 2, null);
-                    mapTile[i][j] = Integer.valueOf(numbers[j]);
-                }
-            }
+        // In "/Level/Level_01.txt" se afla o matrice 20x20. Fiecare număr din acea matrice va afișa pe fereastra
+        // tile-ul corespunzător din vectorul tile la coordonatele sale.
 
-        } catch(Exception e) {
-            e.printStackTrace();
+        if(gamePanel.gameState != gamePanel.titleState) {
+            try {
+
+                InputStream file = getClass().getResourceAsStream("/Level/Level_01.txt");
+                assert file != null;
+                Scanner scanner = new Scanner(new InputStreamReader(file));
+                for(int i = 0; i < 20; i++) {
+                    String line = scanner.nextLine();
+                    String[] numbers = line.split(" ");
+                    for(int j = 0; j < 20; j++) {
+                        g.drawImage(tile[Integer.parseInt(numbers[j])].img, i * 32, j * 32,
+                                gamePanel.tileSize / 2, gamePanel.tileSize / 2, null);
+                        mapTile[i][j] = Integer.parseInt(numbers[j]);
+                    }
+                }
+
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                InputStream file = getClass().getResourceAsStream("/Level/Meniu");
+                assert file != null;
+                Scanner scanner = new Scanner(new InputStreamReader(file));
+                for(int i = 0; i < 20; i++) {
+                    String line = scanner.nextLine();
+                    String[] numbers = line.split(" ");
+                    for(int j = 0; j < 20; j++) {
+                        g.drawImage(tile[Integer.parseInt(numbers[j])].img, i * 32, j * 32,
+                                gamePanel.tileSize / 2, gamePanel.tileSize / 2, null);
+                        mapTile[i][j] = Integer.parseInt(numbers[j]);
+                    }
+                }
+
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
         }
+
     }
     public void draw(Graphics2D g) {
         loadMap(g);

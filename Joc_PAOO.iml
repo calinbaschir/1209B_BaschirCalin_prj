@@ -8,6 +8,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/res/Player" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/res/Tiles" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/res/Level" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/res/Menu" type="java-resource" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

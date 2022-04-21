@@ -29,7 +29,7 @@ public class Player extends Entity{
     }
     public void getPlayerImage()  {
         try {
-            // Se incarca sprite-urile pentru fiecare orientare a caracterului
+            // Se încarcă sprite-urile pentru fiecare orientare a caracterului
             up1 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/Player/Minotaur_Mers_Spate_0.png")));
             up2 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/Player/Minotaur_Mers_Spate_1.png")));
             up3 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/Player/Minotaur_Mers_Spate_2.png")));
@@ -56,7 +56,6 @@ public class Player extends Entity{
     }
     public void update() {
 
-
         gamePanel.collisionChecker.checkTile(this);
         if(!collisionOn) {
             if(keyHandler.upPressed) {
@@ -76,7 +75,7 @@ public class Player extends Entity{
         collisionOn = false;
 
 
-        // De fiecare data cand se ajunge la 10 frame-uri sprite-ul se schimba, rezultand intr-o animatie
+        // De fiecare data când se ajunge la 10 frame-uri sprite-ul se schimba, rezultând într-o animație
         spriteCounter++;
         if(spriteCounter > 10) {
             if(spriteNum == 1) {
@@ -93,6 +92,7 @@ public class Player extends Entity{
 
     }
     public void draw(Graphics2D g) {
+
         BufferedImage img = null;
         switch (direction) {
             case "sus":
