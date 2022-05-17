@@ -1,6 +1,7 @@
 package Game;
 
 import Entity.Player;
+import Entity.Mob;
 import Tiles.TileManager;
 
 import javax.swing.*;
@@ -14,6 +15,7 @@ public class GamePanel extends JPanel implements Runnable {
     final int WIDTH = 10 * tileSize;
     final int HEIGHT = 10 * tileSize;
     final int fps = 60;
+    Graphics g;
 
     // Variabile pentru a stabili stadiul jocului
     public final int titleState = 0;
@@ -30,6 +32,7 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     public CollisionChecker collisionChecker = new CollisionChecker(this);
     Player player = new Player(this, keyHandler);
+    LevelManager levelManager = new LevelManager(this, tileManager, keyHandler, player);
     Menu menu;
 
     public GamePanel() {
@@ -42,7 +45,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
 
         try {
-            menu = new Menu(this, keyHandler, MouseHandler.getInstance(this));
+            menu = new Menu(this, keyHandler, MouseHandler.getInstance(this), player);
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
@@ -73,21 +76,29 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
     }
+
     public void update() {
+        Graphics2D g2 = (Graphics2D) g;
         player.update();
+        levelManager.update(g2);
     }
     public void paintComponent(Graphics g) {
 
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        tileManager.draw(g2);
-
+        levelManager.loadLevel(g2);
+        levelManager.update(g2);
 
         // In funcție de gameState se va decide ce anume sa se deseneze
 
         if(gameState == playState) {
             // Player-ul va apărea doar in timp ce jocul rulează
+
             player.draw(g2);
+            if(player.isDead()) {
+                gameState = titleState;
+                levelManager.update(g2);
+            }
         } else if(gameState == titleState ){
             menu.draw(g2);
         }

@@ -1,6 +1,8 @@
 package Game;
 
 
+import Entity.Player;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -14,6 +16,7 @@ public class Menu {
     MouseHandler mouseHandler;
     BufferedImage trapped, playButton;
     BufferedImage playButton_pressed;
+    Player player;
     // BufferedImage exitButton, exitButton_pressed;
 
     // Un vector de doua coordonate, date in felul următor:
@@ -21,10 +24,11 @@ public class Menu {
     // coord[1] = coordonatele cursorului la momentul eliberării mouse-ului
     Point[] coord;
 
-    public Menu(GamePanel p_gamePanel, KeyHandler p_KeyHandler, MouseHandler p_mouseHandler)  {
+    public Menu(GamePanel p_gamePanel, KeyHandler p_KeyHandler, MouseHandler p_mouseHandler, Player p_player)  {
         gamePanel = p_gamePanel;
         keyHandler = p_KeyHandler;
         mouseHandler = p_mouseHandler;
+        player = p_player;
     }
     private void getMenuImg() {
         try {
@@ -54,6 +58,8 @@ public class Menu {
             g.drawImage(playButton_pressed, 250, 200, 112, 39, null);
             if (coord[1].getX() >= 705 && coord[1].getX() <= 805 && coord[1].getY() >= 310 && coord[1].getY() <= 335) {
                 gamePanel.gameState = gamePanel.playState;
+                player.ressurect();
+                MouseHandler.resetCoord();
             }
         }
     }

@@ -58,5 +58,9 @@ public class MouseHandler implements MouseListener {
         mouseClick[1] = mouseRelease;
         return mouseClick;
     }
+    public static void resetCoord() {
+        mousePress.move(0, 0);
+        mouseRelease.move(0, 0);
+    }
 
 }

@@ -46,16 +46,23 @@ public class TileManager {
             e.printStackTrace();
         }
     }
-    public void loadMap(Graphics2D g) {
-        // In "/Level/Level_01.txt" se afla o matrice 20x20. Fiecare număr din acea matrice va afișa pe fereastra
+    public void loadMap(Graphics2D g, String mapPath) {
+        // In "/Level/Level_1.txt" se afla o matrice 20x20. Fiecare număr din acea matrice va afișa pe fereastra
         // tile-ul corespunzător din vectorul tile la coordonatele sale.
 
         if(gamePanel.gameState != gamePanel.titleState) {
             try {
 
-                InputStream file = getClass().getResourceAsStream("/Level/Level_01.txt");
+                InputStream file = getClass().getResourceAsStream(mapPath);
                 assert file != null;
                 Scanner scanner = new Scanner(new InputStreamReader(file));
+                int nrMobi = Integer.parseInt(scanner.nextLine());
+                if(nrMobi > 0) {
+                    for(int i = 0; i < nrMobi; i++) {
+                        scanner.nextLine();
+                    }
+                }
+
                 for(int i = 0; i < 20; i++) {
                     String line = scanner.nextLine();
                     String[] numbers = line.split(" ");
@@ -86,11 +93,10 @@ public class TileManager {
 
             } catch(Exception e) {
                 e.printStackTrace();
+                System.exit(0);
             }
         }
 
     }
-    public void draw(Graphics2D g) {
-        loadMap(g);
-    }
+
 }

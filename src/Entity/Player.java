@@ -13,19 +13,35 @@ import java.util.Objects;
 public class Player extends Entity{
     GamePanel gamePanel;
     KeyHandler keyHandler;
+    int spawnX;
+    int spawnY;
+    boolean dead = false;
     public Player(GamePanel p_gamePanel, KeyHandler p_keyHandler) {
         gamePanel = p_gamePanel;
         keyHandler = p_keyHandler;
-        setDefault();
+        setSpawnPoint(100, 100, 4);
         solidArea = new Rectangle(28, 28, 10, 38);
         collisionOn = false;
-    }
-    public void setDefault() {
-        worldX = 100;
-        worldY = 100;
-        speed = 4;
-        direction = "jos";
         getPlayerImage();
+    }
+    public void setSpawnPoint(int p_worldX, int p_worldY, int p_speed) {
+        worldX = p_worldX;
+        worldY = p_worldY;
+        spawnX = worldX;
+        spawnY = worldY;
+        speed = p_speed;
+        direction = "jos";
+    }
+    public void setDead() {
+        dead = true;
+    }
+    public void ressurect() {
+        dead = false;
+        worldX = spawnX;
+        worldY = spawnY;
+    }
+    public boolean isDead() {
+        return dead;
     }
     public void getPlayerImage()  {
         try {
@@ -55,40 +71,60 @@ public class Player extends Entity{
         }
     }
     public void update() {
+        if(dead) {
+            gamePanel.gameState = gamePanel.titleState;
+        } else {
+            gamePanel.collisionChecker.checkTile(this);
+            if(!collisionOn) {
+                if(keyHandler.upPressed && keyHandler.rightPressed) {
+                    worldY -= speed;
+                    worldX += speed;
+                    direction = "sus";
+                } else if(keyHandler.upPressed && keyHandler.leftPressed) {
+                    worldY -= speed;
+                    worldX -= speed;
+                    direction = "sus";
+                } else if(keyHandler.downPressed && keyHandler.leftPressed) {
+                    worldY += speed;
+                    worldX -= speed;
+                    direction = "jos";
+                } else if(keyHandler.downPressed && keyHandler.rightPressed) {
+                    worldY += speed;
+                    worldX += speed;
+                    direction = "jos";
+                } else if(keyHandler.upPressed) {
+                    worldY -= speed;
+                    direction = "sus";
+                } else if (keyHandler.downPressed) {
+                    worldY += speed;
+                    direction = "jos";
+                } else if (keyHandler.leftPressed) {
+                    worldX -= speed;
+                    direction = "stg";
+                } else if (keyHandler.rightPressed) {
+                    worldX += speed;
+                    direction = "drt";
+                }
+            }
+            collisionOn = false;
 
-        gamePanel.collisionChecker.checkTile(this);
-        if(!collisionOn) {
-            if(keyHandler.upPressed) {
-                worldY -= speed;
-                direction = "sus";
-            } else if (keyHandler.downPressed) {
-                worldY += speed;
-                direction = "jos";
-            } else if (keyHandler.leftPressed) {
-                worldX -= speed;
-                direction = "stg";
-            } else if (keyHandler.rightPressed) {
-                worldX += speed;
-                direction = "drt";
+
+            // De fiecare data când se ajunge la 10 frame-uri sprite-ul se schimba, rezultând într-o animație
+            spriteCounter++;
+            if(spriteCounter > 10) {
+                if(spriteNum == 1) {
+                    spriteNum = 2;
+                } else if(spriteNum == 2) {
+                    spriteNum = 3;
+                } else if(spriteNum == 3) {
+                    spriteNum = 4;
+                } else if (spriteNum == 4) {
+                    spriteNum = 1;
+                }
+                spriteCounter = 0;
             }
         }
-        collisionOn = false;
 
-
-        // De fiecare data când se ajunge la 10 frame-uri sprite-ul se schimba, rezultând într-o animație
-        spriteCounter++;
-        if(spriteCounter > 10) {
-            if(spriteNum == 1) {
-                spriteNum = 2;
-            } else if(spriteNum == 2) {
-                spriteNum = 3;
-            } else if(spriteNum == 3) {
-                spriteNum = 4;
-            } else if (spriteNum == 4) {
-                spriteNum = 1;
-            }
-            spriteCounter = 0;
-        }
 
     }
     public void draw(Graphics2D g) {
@@ -142,5 +178,6 @@ public class Player extends Entity{
 
         }
         g.drawImage(img, worldX, worldY,  gamePanel.tileSize, gamePanel.tileSize, null);
+
     }
 }
