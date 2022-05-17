@@ -32,7 +32,7 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     public CollisionChecker collisionChecker = new CollisionChecker(this);
     Player player = new Player(this, keyHandler);
-    LevelManager levelManager = new LevelManager(this, tileManager, keyHandler, player);
+    public LevelManager levelManager = new LevelManager(this, tileManager, keyHandler, player);
     Menu menu;
 
     public GamePanel() {
@@ -85,6 +85,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+        levelManager.nextLvl();
         levelManager.loadLevel(g2);
 
         // In funcție de gameState se va decide ce anume sa se deseneze
@@ -94,6 +95,7 @@ public class GamePanel extends JPanel implements Runnable {
             levelManager.draw(g2);
 
             if(player.isDead()) {
+                levelManager.level = 1;
                 gameState = titleState;
                 levelManager.update();
             }

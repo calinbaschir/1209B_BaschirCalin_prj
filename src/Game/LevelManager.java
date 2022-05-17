@@ -29,7 +29,9 @@ public class LevelManager {
 
     public void loadLevel(Graphics2D g) {
         try {
-
+            if(player.worldY < 40) {
+                level++;
+            }
             String mapPath = "/res/Level/Level_" + level + ".txt";
             InputStream file = getClass().getResourceAsStream(mapPath);
             assert file != null;
@@ -45,8 +47,6 @@ public class LevelManager {
             System.exit(0);
         }
 
-
-        // In fiecare fisier "Level_xx.txt" sa fie dat viteza, numarul si spawnPoint-ul mobilor, cat si spawnpoint-ul player-ului
         // Trecerea de la un nivel la altul.
         // Tile-uri care omoara mobi (gropi).
         // Integrarea cu baza de date
@@ -59,6 +59,7 @@ public class LevelManager {
             updateMobs();
             player.update();
         }
+        nextLvl();
     }
 
     public void updateMobs() {
@@ -85,4 +86,14 @@ public class LevelManager {
         drawMobs(g);
     }
 
+    public boolean nextLvl() {
+        if(player.worldY < 40) {
+            level++;
+            player.setSpawnPoint(100, 100, 4);
+            mobArr = new ArrayList<>();
+            return true;
+        }
+        return false;
+
+    }
 }
