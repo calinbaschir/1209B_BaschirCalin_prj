@@ -32,7 +32,7 @@ public class Mob extends Entity {
         direction = "jos";
     }
 
-    public void update(Graphics2D g) {
+    public void update() {
         gamePanel.collisionChecker.checkTile(this);
         if(!collisionOn) {
             if(worldX >= player.worldX - 5 && worldX <= player.worldX + 5 && worldY >= player.worldY - 5 && worldY <= player.worldY + 5) {
@@ -84,7 +84,6 @@ public class Mob extends Entity {
             }
             spriteCounter = 0;
         }
-        this.draw(g);
     }
 
     public void draw(Graphics2D g) {

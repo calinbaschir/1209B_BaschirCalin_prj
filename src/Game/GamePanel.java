@@ -20,7 +20,7 @@ public class GamePanel extends JPanel implements Runnable {
     // Variabile pentru a stabili stadiul jocului
     public final int titleState = 0;
     public final int playState = 1;
-//    public final int pauseState = 2;
+    //    public final int pauseState = 2;
 //    public final int exitState = -1;
     public int gameState = titleState;
 
@@ -71,33 +71,31 @@ public class GamePanel extends JPanel implements Runnable {
                 Thread.sleep((long) remainingTime);
                 nextDrawTime += drawInterval;
             } catch (InterruptedException e) {
-                    e.printStackTrace();
+                e.printStackTrace();
             }
         }
 
     }
 
     public void update() {
-        Graphics2D g2 = (Graphics2D) g;
         player.update();
-        levelManager.update(g2);
+        levelManager.update();
     }
     public void paintComponent(Graphics g) {
 
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         levelManager.loadLevel(g2);
-        levelManager.update(g2);
 
         // In funcție de gameState se va decide ce anume sa se deseneze
 
         if(gameState == playState) {
             // Player-ul va apărea doar in timp ce jocul rulează
+            levelManager.draw(g2);
 
-            player.draw(g2);
             if(player.isDead()) {
                 gameState = titleState;
-                levelManager.update(g2);
+                levelManager.update();
             }
         } else if(gameState == titleState ){
             menu.draw(g2);

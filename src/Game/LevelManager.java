@@ -54,19 +54,35 @@ public class LevelManager {
         // Cv animatie gen de wasted
 
     }
-    public void update(Graphics2D g) {
+    public void update() {
         if(gamePanel.gameState == gamePanel.playState) {
-            try {
-                for (int i = 0; i < nrMobi; i++) {
-                    mobArr.get(i).update(g);
-                    player.update();
-                }
-            } catch (Exception e) {
-
-            }
-
+            updateMobs();
+            player.update();
         }
-
-
     }
+
+    public void updateMobs() {
+        try {
+            for(int i = 0; i < nrMobi; i++) {
+                mobArr.get(i).update();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void drawMobs(Graphics2D g) {
+        try {
+            for (int i = 0; i < nrMobi; i++) {
+                mobArr.get(i).draw(g);
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void draw(Graphics2D g) {
+        player.draw(g);
+        drawMobs(g);
+    }
+
 }
