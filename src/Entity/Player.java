@@ -124,7 +124,7 @@ public class Player extends Entity{
                 spriteCounter = 0;
             }
         }
-
+       // System.out.println(worldX + ", " + worldY);
 
     }
     public void draw(Graphics2D g) {
@@ -178,6 +178,5 @@ public class Player extends Entity{
 
         }
         g.drawImage(img, worldX, worldY,  gamePanel.tileSize, gamePanel.tileSize, null);
-
     }
 }

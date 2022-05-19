@@ -80,14 +80,24 @@ public class LevelManager {
     }
 
     public boolean nextLvl() {
-        if(player.worldY < 38) {
-            player.setSpawnPoint(100, 100, 4);
+        System.out.println(level);
+        if(player.worldY < 37) {
+            player.setSpawnPoint(280, 500, 4);
             level++;
 
             mobArr = new ArrayList<>();
             return true;
         }
         return false;
+    }
 
+    public boolean prevLvl() {
+        if(player.worldY > 540) {
+            player.setSpawnPoint(280, 40, 4);
+            level--;
+            mobArr = new ArrayList<>();
+            return true;
+        }
+        return false;
     }
 }

@@ -86,6 +86,7 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         levelManager.nextLvl();
+        levelManager.prevLvl();
         levelManager.loadLevel(g2);
 
         // In funcție de gameState se va decide ce anume sa se deseneze
