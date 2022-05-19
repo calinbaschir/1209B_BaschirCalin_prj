@@ -46,13 +46,6 @@ public class LevelManager {
             e.printStackTrace();
             System.exit(0);
         }
-
-        // Trecerea de la un nivel la altul.
-        // Tile-uri care omoara mobi (gropi).
-        // Integrarea cu baza de date
-        // Sprite urile mobilor
-        // Cv animatie gen de wasted
-
     }
     public void update() {
         if(gamePanel.gameState == gamePanel.playState) {
@@ -87,9 +80,10 @@ public class LevelManager {
     }
 
     public boolean nextLvl() {
-        if(player.worldY < 40) {
-            level++;
+        if(player.worldY < 38) {
             player.setSpawnPoint(100, 100, 4);
+            level++;
+
             mobArr = new ArrayList<>();
             return true;
         }

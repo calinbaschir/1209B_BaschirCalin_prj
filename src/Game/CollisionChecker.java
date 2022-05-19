@@ -11,15 +11,12 @@ public class CollisionChecker {
     }
     public void checkTile(Entity entity) {
 
-        // Se salvează poziția hit-box-ului caracterului in variabilele următoare
         int entityLeftX = entity.worldX + entity.solidArea.x;
         int entityRightX = entity.worldX + entity.solidArea.x + entity.solidArea.width;
         int entityTopY = entity.worldY + entity.solidArea.y;
         int entityBotY = entity.worldY + entity.solidArea.y + entity.solidArea.height;
+        // Se salvează poziția hit-box-ului caracterului in variabilele următoare
 
-        if(entityLeftX < 0) {
-            gamePanel.levelManager.nextLvl();
-        } else {
 
             int entityLeftCol = entityLeftX / 32;
             int entityRightCol = entityRightX / 32;
@@ -67,4 +64,4 @@ public class CollisionChecker {
             }
         }
     }
-}
+
