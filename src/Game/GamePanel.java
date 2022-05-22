@@ -1,7 +1,6 @@
 package Game;
 
 import Entity.Player;
-import Entity.Mob;
 import Tiles.TileManager;
 
 import javax.swing.*;
@@ -32,6 +31,9 @@ public class GamePanel extends JPanel implements Runnable {
     Player player = new Player(this, keyHandler);
     public LevelManager levelManager = new LevelManager(this, tileManager, keyHandler, player);
     Menu menu;
+
+    int score = 0;
+    int frames = 0;
 
     public GamePanel() {
 
@@ -76,6 +78,10 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
+        frames++;
+        if(frames % 60 == 0) {
+            score++;
+        }
         player.update();
         levelManager.update();
     }
@@ -104,4 +110,7 @@ public class GamePanel extends JPanel implements Runnable {
         g2.dispose();
     }
 
+    public int getScore() {
+        return score;
+    }
 }

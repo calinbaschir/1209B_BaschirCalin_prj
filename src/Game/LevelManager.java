@@ -57,6 +57,7 @@ public class LevelManager {
             player.update();
         }
         nextLvl();
+        printScore();
     }
 
     public void updateMobs() {
@@ -84,7 +85,7 @@ public class LevelManager {
     }
 
     public void nextLvl() {
-        if(player.worldY < 37 && level != 3) {
+        if(player.worldY < 37 && level < 3) {
             player.setSpawnPoint(280, 500, 4);
             level++;
             mobArr = new ArrayList<>();
@@ -92,10 +93,19 @@ public class LevelManager {
     }
 
     public void prevLvl() {
-        if(player.worldY > 540 && level > 1) {
+        if(player.worldY > 540) {
             player.setSpawnPoint(280, 40, 4);
             level--;
             mobArr = new ArrayList<>();
+        }
+    }
+
+    public void printScore() {
+        if(gamePanel.getScore() < Database.getInstance().getScore()) {
+            Database.setScore(gamePanel.score);
+        }
+        if(level == 3) {
+            System.out.println("Scor: " + gamePanel.getScore() + "\nHighscore: " + Database.getInstance().getScore());
         }
     }
 }
