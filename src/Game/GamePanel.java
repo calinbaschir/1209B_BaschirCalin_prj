@@ -20,12 +20,10 @@ public class GamePanel extends JPanel implements Runnable {
     // Variabile pentru a stabili stadiul jocului
     public final int titleState = 0;
     public final int playState = 1;
-    //    public final int pauseState = 2;
-//    public final int exitState = -1;
     public int gameState = titleState;
 
 
-    TileManager tileManager = new TileManager(this);
+    public TileManager tileManager = new TileManager(this);
     KeyHandler keyHandler = new KeyHandler();
 
     // Caracteristicile ferestrei
@@ -100,7 +98,7 @@ public class GamePanel extends JPanel implements Runnable {
                 gameState = titleState;
                 levelManager.update();
             }
-        } else if(gameState == titleState ){
+        } else if(gameState == titleState){
             menu.draw(g2);
         }
         g2.dispose();

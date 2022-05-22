@@ -13,9 +13,11 @@ import java.util.Objects;
 public class Player extends Entity{
     GamePanel gamePanel;
     KeyHandler keyHandler;
+    boolean spedUp = false;
     int spawnX;
     int spawnY;
     boolean dead = false;
+
     public Player(GamePanel p_gamePanel, KeyHandler p_keyHandler) {
         gamePanel = p_gamePanel;
         keyHandler = p_keyHandler;
@@ -34,11 +36,13 @@ public class Player extends Entity{
     }
     public void setDead() {
         dead = true;
+        gamePanel.levelManager.resetLevel();
     }
     public void ressurect() {
         dead = false;
         worldX = spawnX;
         worldY = spawnY;
+        speed = 4;
     }
     public boolean isDead() {
         return dead;
@@ -126,6 +130,7 @@ public class Player extends Entity{
         }
        // System.out.println(worldX + ", " + worldY);
 
+        speedUp();
     }
     public void draw(Graphics2D g) {
 
@@ -178,5 +183,12 @@ public class Player extends Entity{
 
         }
         g.drawImage(img, worldX, worldY,  gamePanel.tileSize, gamePanel.tileSize, null);
+    }
+
+    public void speedUp() {
+        if(gamePanel.tileManager.checkSpeedUp(worldX, worldY) && !spedUp) {
+            speed += 2;
+            spedUp = true;
+        }
     }
 }

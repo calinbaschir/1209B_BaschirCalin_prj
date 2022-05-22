@@ -27,6 +27,10 @@ public class LevelManager {
 
     }
 
+    public void resetLevel() {
+        level = 1;
+    }
+
     public void loadLevel(Graphics2D g) {
         try {
             if(player.worldY < 40) {
@@ -79,25 +83,19 @@ public class LevelManager {
         drawMobs(g);
     }
 
-    public boolean nextLvl() {
-        System.out.println(level);
-        if(player.worldY < 37) {
+    public void nextLvl() {
+        if(player.worldY < 37 && level != 3) {
             player.setSpawnPoint(280, 500, 4);
             level++;
-
             mobArr = new ArrayList<>();
-            return true;
         }
-        return false;
     }
 
-    public boolean prevLvl() {
-        if(player.worldY > 540) {
+    public void prevLvl() {
+        if(player.worldY > 540 && level > 1) {
             player.setSpawnPoint(280, 40, 4);
             level--;
             mobArr = new ArrayList<>();
-            return true;
         }
-        return false;
     }
 }

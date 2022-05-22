@@ -8,5 +8,6 @@ public class Tile {
 
         // Boolean-ul collision stabilește daca tile-ul va suporta sau nu coliziune
         public boolean collision = false;
-    }
+        public boolean powerUp = false;
+}
 
