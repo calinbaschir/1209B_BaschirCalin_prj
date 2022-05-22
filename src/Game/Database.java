@@ -36,11 +36,11 @@ public class Database {
         }
 
         String query = "SELECT * FROM score";
-        try {
-            Connection connection = dataBase.getConnection();
-            Statement statement = connection.createStatement();
+        try(Connection connection = dataBase.getConnection();
+            Statement statement = connection.createStatement()) {
+
             ResultSet resultSet = statement.executeQuery(query);
-            PreparedStatement preparedStatement = connection.prepareStatement("update score" + "set bestScore = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("update score set MaxScore = ?");
             while(resultSet.next()) {
                 preparedStatement.setInt(1, score);
                 preparedStatement.executeUpdate();

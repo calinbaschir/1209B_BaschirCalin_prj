@@ -78,9 +78,11 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        frames++;
-        if(frames % 60 == 0) {
-            score++;
+        if(levelManager.level != 3 && gameState == playState) {
+            frames++;
+            if(frames % 60 == 0) {
+                score++;
+            }
         }
         player.update();
         levelManager.update();
@@ -103,6 +105,7 @@ public class GamePanel extends JPanel implements Runnable {
                 levelManager.level = 1;
                 gameState = titleState;
                 levelManager.update();
+                score = 0;
             }
         } else if(gameState == titleState){
             menu.draw(g2);

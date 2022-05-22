@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LevelManager {
+    boolean scoreNotPrinted = true;
     int level = 1;
     GamePanel gamePanel;
     TileManager tileManager;
@@ -66,7 +67,7 @@ public class LevelManager {
                 mobArr.get(i).update();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
     }
     public void drawMobs(Graphics2D g) {
@@ -75,7 +76,7 @@ public class LevelManager {
                 mobArr.get(i).draw(g);
             }
         } catch(Exception e) {
-            e.printStackTrace();
+            
         }
     }
 
@@ -101,11 +102,12 @@ public class LevelManager {
     }
 
     public void printScore() {
-        if(gamePanel.getScore() < Database.getInstance().getScore()) {
+        if(gamePanel.getScore() > Database.getInstance().getScore()) {
             Database.setScore(gamePanel.score);
         }
-        if(level == 3) {
+        if(level == 3 && scoreNotPrinted) {
             System.out.println("Scor: " + gamePanel.getScore() + "\nHighscore: " + Database.getInstance().getScore());
+            scoreNotPrinted = false;
         }
     }
 }
