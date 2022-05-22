@@ -15,13 +15,13 @@ public class TileManager {
 
     public TileManager(GamePanel p_gamePanel) {
         gamePanel = p_gamePanel;
-        tile = new Tile[7];
+        tile = new Tile[8];
         mapTile = new int[20][20];
         getTileImage();
     }
     public void getTileImage() {
         try {
-            for(int i = 0; i < 7; i++) {
+            for(int i = 0; i < 8; i++) {
                 tile[i] = new Tile();
             }
             // Tile-uri fara coliziune
@@ -45,6 +45,9 @@ public class TileManager {
 
             tile[6].img = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/Tiles/Speed_Tile_1.png")));
             tile[6].powerUp = true;
+
+            tile[7].img = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/Tiles/Finish_Tile_1.png")));
+            tile[7].victory = true;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -105,8 +108,21 @@ public class TileManager {
     public boolean checkSpeedUp(int coordX, int coordY) {
         int tileX = coordX / 32 + 2;
         int tileY = coordY / 32 + 3;
+        if (tileY < 20 && tileY > 0 && tileX < 20 && tileX > 0){
 
-        return mapTile[tileY][tileX] == 6;
+            return tile[mapTile[tileY][tileX]].powerUp;
+        }
+        return false;
+    }
+
+    public boolean checkVictory(int coordX, int coordY) {
+        int tileX = coordX / 32 + 2;
+        int tileY = coordY / 32 + 3;
+        if(tileY < 20 && tileY > 0 && tileX < 20 && tileX > 0) {
+
+            return tile[mapTile[tileY][tileX]].victory;
+        }
+        return false;
     }
 
 }

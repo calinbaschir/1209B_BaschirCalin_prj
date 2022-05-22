@@ -130,7 +130,7 @@ public class Player extends Entity{
         }
        // System.out.println(worldX + ", " + worldY);
 
-        speedUp();
+        checkTileAttributes();
     }
     public void draw(Graphics2D g) {
 
@@ -185,10 +185,12 @@ public class Player extends Entity{
         g.drawImage(img, worldX, worldY,  gamePanel.tileSize, gamePanel.tileSize, null);
     }
 
-    public void speedUp() {
+    public void checkTileAttributes() {
         if(gamePanel.tileManager.checkSpeedUp(worldX, worldY) && !spedUp) {
             speed += 2;
             spedUp = true;
+        } else if(gamePanel.tileManager.checkVictory(worldX, worldY)) {
+            gamePanel.gameState = gamePanel.titleState;
         }
     }
 }
