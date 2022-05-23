@@ -34,7 +34,7 @@ public class LevelManager {
 
     public void loadLevel(Graphics2D g) {
         try {
-            if(player.worldY < 40) {
+            if(player.worldY < 10) {
                 level++;
             }
             String mapPath = "/res/Level/Level_" + level + ".txt";
@@ -86,8 +86,8 @@ public class LevelManager {
     }
 
     public void nextLvl() {
-        if(player.worldY < 37 && level < 3) {
-            player.setSpawnPoint(280, 500, 4);
+        if(player.worldY < 37) {
+            player.setSpawnPoint(280, 500, 3);
             level++;
             mobArr = new ArrayList<>();
         }
@@ -95,7 +95,7 @@ public class LevelManager {
 
     public void prevLvl() {
         if(player.worldY > 540) {
-            player.setSpawnPoint(280, 40, 4);
+            player.setSpawnPoint(280, 40, 3);
             level--;
             mobArr = new ArrayList<>();
         }
@@ -105,7 +105,7 @@ public class LevelManager {
         if(gamePanel.getScore() > Database.getInstance().getScore()) {
             Database.setScore(gamePanel.score);
         }
-        if(level == 3 && scoreNotPrinted) {
+        if(level == 4 && scoreNotPrinted) {
             System.out.println("Scor: " + gamePanel.getScore() + "\nHighscore: " + Database.getInstance().getScore());
             scoreNotPrinted = false;
         }

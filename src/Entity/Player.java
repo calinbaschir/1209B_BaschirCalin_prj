@@ -42,7 +42,7 @@ public class Player extends Entity{
         dead = false;
         worldX = spawnX;
         worldY = spawnY;
-        speed = 4;
+        speed = 2;
     }
     public boolean isDead() {
         return dead;
@@ -190,7 +190,7 @@ public class Player extends Entity{
             speed += 2;
             spedUp = true;
         } else if(gamePanel.tileManager.checkVictory(worldX, worldY)) {
-            gamePanel.gameState = gamePanel.titleState;
+            setDead();
         }
     }
 }

@@ -107,7 +107,7 @@ public class TileManager {
 
     public boolean checkSpeedUp(int coordX, int coordY) {
         int tileX = coordX / 32 + 2;
-        int tileY = coordY / 32 + 3;
+        int tileY = coordY / 32 + 2;
         if (tileY < 20 && tileY > 0 && tileX < 20 && tileX > 0){
 
             return tile[mapTile[tileY][tileX]].powerUp;
